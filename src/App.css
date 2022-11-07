@@ -124,3 +124,7 @@ HOME CSS
     background-color: #f8f8f8;
     color: #222;
   }
+
+  .search__buttonHidden {
+    display: none !important;
+  }
