@@ -3,8 +3,11 @@ import "../App.css";
 import SearchIcon from "@mui/icons-material/Search";
 import MicIcon from "@mui/icons-material/Mic";
 import { useHistory } from "react-router-dom";
+import { useStateValue } from "../StateProvider";
+import { actionTypes } from "../reducer";
 
 function Search({ hideButtons = false }) {
+  const [{}, dispatch] = useStateValue();
   const [input, setInput] = useState("");
   const history = useHistory();
 
@@ -12,8 +15,15 @@ function Search({ hideButtons = false }) {
     e.preventDefault();
 
     console.log("you hit search", input);
+
+    dispatch({
+      type: actionTypes.SET_SEARCH_TERM,
+      term: input
+    });
+
     history.push("/search");
   };
+
   return (
     <form className="Search">
       <div className="search__input">
@@ -31,7 +41,11 @@ function Search({ hideButtons = false }) {
         </div>
       ) : (
         <div className="search__buttons hidden ">
-          <button type="submit" className="search__buttonHidden" onClick={search}>
+          <button
+            type="submit"
+            className="search__buttonHidden"
+            onClick={search}
+          >
             Google Search
           </button>
           <button className="search__buttonHidden">I'm Feeling Lucky</button>
